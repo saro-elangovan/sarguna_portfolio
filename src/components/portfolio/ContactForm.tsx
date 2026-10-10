@@ -12,7 +12,8 @@ export function ContactForm() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     if (f.get("website")) return; // honeypot
-    const v = Object.fromEntries(["name", "email", "subject", "message"].map((k) => [k, String(f.get(k) || "").trim()]));
+    const g = (k: string) => String(f.get(k) || "").trim();
+    const v = { name: g("name"), email: g("email"), subject: g("subject"), message: g("message") };
     const err: Errors = {};
     if (!v.name) err.name = "Please enter your name.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) err.email = "Please enter a valid email address.";
