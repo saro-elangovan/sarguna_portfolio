@@ -50,7 +50,7 @@ const btn = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 
 
 function Index() {
   const reduce = useReducedMotion();
-  const fade = (d: number) => ({ initial: reduce ? false : { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: d } });
+  const fade = (d: number) => ({ initial: (reduce ? false : { opacity: 0, y: 20 }) as false | { opacity: number; y: number }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: d } });
 
   return (
     <div className="relative">
@@ -200,7 +200,7 @@ function Index() {
           <SectionHeader eyebrow="Focus" title="Areas of Interest" subtitle="Capabilities I bring as an early-career data professional." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => {
-              const Icon = serviceIcons[i];
+              const Icon = serviceIcons[i] ?? BarChart3;
               return (
                 <Reveal key={s.title} delay={i * 0.05} className="glass rounded-2xl p-6 transition-transform hover:-translate-y-1">
                   <div className="inline-flex rounded-lg bg-brand p-2.5"><Icon className="h-5 w-5 text-primary-foreground" /></div>
