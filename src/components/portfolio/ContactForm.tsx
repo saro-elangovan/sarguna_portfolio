@@ -1,16 +1,17 @@
 import { useState, type FormEvent } from "react";
 import { Send } from "lucide-react";
-import { contact } from "@/lib/portfolio-data";
+import { supabase } from "@/integrations/supabase/client";
 
 type Errors = Partial<Record<"name" | "email" | "subject" | "message", string>>;
 
 export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
-  const [opened, setOpened] = useState(false);
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  function submit(e: FormEvent<HTMLFormElement>) {
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    const form = e.currentTarget;
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
+    const f = new FormData(form);
     if (f.get("website")) return; // honeypot
     const g = (k: string) => String(f.get(k) || "").trim();
     const v = { name: g("name"), email: g("email"), subject: g("subject"), message: g("message") };
@@ -21,9 +22,11 @@ export function ContactForm() {
     if (v.message.length < 10) err.message = "Message should be at least 10 characters.";
     setErrors(err);
     if (Object.keys(err).length) return;
-    const body = `${v.message}\n\n— ${v.name} (${v.email})`;
-    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(v.subject)}&body=${encodeURIComponent(body)}`;
-    setOpened(true);
+    setState("sending");
+    const { error } = await supabase.from("contact_messages").insert(v);
+    if (error) return setState("error");
+    form.reset();
+    setState("sent");
   }
 
   const field = "mt-1.5 w-full rounded-lg border border-input bg-secondary px-4 py-3 text-sm placeholder:text-muted-foreground focus:border-accent focus:outline-none";
@@ -51,11 +54,12 @@ export function ContactForm() {
         <textarea id="message" name="message" rows={5} required aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-err" : undefined} className={field} />
         <Err k="message" />
       </div>
-      <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 font-medium text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 sm:w-auto">
-        <Send className="h-4 w-4" /> Send via Email
+      <button type="submit" disabled={state === "sending"} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 font-medium text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 sm:w-auto">
+        <Send className="h-4 w-4" /> {state === "sending" ? "Sending…" : "Send Message"}
       </button>
-      <p className="text-xs text-muted-foreground" aria-live="polite">
-        {opened ? "Your email app should now be open with the message ready — just press send." : "This opens your email app with your message pre-filled."}
+      <p aria-live="polite" className={`text-sm ${state === "error" ? "text-destructive" : "text-accent"}`}>
+        {state === "sent" && "Thank you! Your message has been sent — Sarguna will get back to you soon."}
+        {state === "error" && "Sorry, your message couldn't be sent. Please try again or email directly."}
       </p>
     </form>
   );

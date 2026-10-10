@@ -6,6 +6,7 @@ import { Navbar } from "@/components/portfolio/Navbar";
 import { HeroVisual, ProjectVisual } from "@/components/portfolio/Visuals";
 import { Reveal, SectionHeader, CountUp, Tag, Github, Linkedin } from "@/components/portfolio/Shared";
 import { ContactForm } from "@/components/portfolio/ContactForm";
+import { AskAssistant } from "@/components/portfolio/AskAssistant";
 import { contact, stats, skills, experience, projects, certifications, services, nav } from "@/lib/portfolio-data";
 
 const TITLE = "Sarguna E — AI & Data Science Portfolio | Data Analyst";
@@ -250,6 +251,7 @@ function Index() {
         </div>
         <p className="pb-8 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Sarguna E. All rights reserved.</p>
       </footer>
+      <AskAssistant />
     </div>
   );
 }
