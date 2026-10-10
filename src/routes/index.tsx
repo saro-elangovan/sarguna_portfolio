@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, FileText, Mail, Phone, MapPin, Github, Linkedin, Award, Briefcase, GraduationCap, ArrowUp, BarChart3, LineChart, Code2, Brain, Database, Workflow, ExternalLink } from "lucide-react";
+import { ArrowRight, FileText, Mail, Phone, MapPin, Award, Briefcase, GraduationCap, ArrowUp, BarChart3, LineChart, Code2, Brain, Database, Workflow, ExternalLink } from "lucide-react";
 import { Navbar } from "@/components/portfolio/Navbar";
 import { HeroVisual, ProjectVisual } from "@/components/portfolio/Visuals";
-import { Reveal, SectionHeader, CountUp, Tag } from "@/components/portfolio/Shared";
+import { Reveal, SectionHeader, CountUp, Tag, Github, Linkedin } from "@/components/portfolio/Shared";
 import { ContactForm } from "@/components/portfolio/ContactForm";
 import { contact, stats, skills, experience, projects, certifications, services, nav } from "@/lib/portfolio-data";
 
@@ -141,7 +141,7 @@ function Index() {
           <div className="grid gap-6 lg:grid-cols-3">
             {projects.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.1}>
-                <motion.article whileHover={reduce ? undefined : { y: -6 }} className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-colors hover:border-accent/50">
+                <motion.article whileHover={{ y: reduce ? 0 : -6 }} className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-colors hover:border-accent/50">
                   <div className="border-b border-border bg-secondary/40"><ProjectVisual kind={p.visual} /></div>
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="text-lg font-semibold">{p.title}</h3>
