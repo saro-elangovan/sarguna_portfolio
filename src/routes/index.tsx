@@ -50,10 +50,6 @@ function Rotator() {
 
 const btn = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition-all hover:-translate-y-0.5";
 
-function openResume() {
-  window.open(resumeAsset.url, "_blank", "noopener");
-}
-
 function Index() {
   const reduce = useReducedMotion();
   const fade = (d: number) => ({ initial: (reduce ? false : { opacity: 0, y: 20 }) as false | { opacity: number; y: number }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: d } });
@@ -78,7 +74,7 @@ function Index() {
             </motion.p>
             <motion.div {...fade(0.4)} className="mt-8 flex flex-wrap gap-3">
               <a href="#projects" className={`${btn} bg-brand text-primary-foreground shadow-glow`}>Explore My Projects <ArrowRight className="h-4 w-4" /></a>
-              <button type="button" onClick={openResume} className={`${btn} glass`}><FileText className="h-4 w-4" /> View Resume</button>
+              <a href={resumeAsset.url} target="_blank" rel="noopener noreferrer" className={`${btn} glass`}><FileText className="h-4 w-4" /> View Resume</a>
               <a href="#contact" className={`${btn} text-muted-foreground hover:text-foreground`}>Contact Me</a>
             </motion.div>
           </div>
