@@ -11,3 +11,4 @@
 
 - Portfolio content lives in src/lib/portfolio-data.ts and also feeds the AI assistant prompt (src/routes/api/chat.ts), so the assistant never drifts from the page.
 - Contact messages are inserted from the browser into a public insert-only table; nobody can read them through the public API.
+- The resume PDF is a CDN asset pointer (src/assets/Sarguna_Resume.pdf.asset.json); the hero button opens that pointer's url. Never restore a mailto/"request resume" fallback or a copy of the PDF in public/.
