@@ -49,6 +49,19 @@ function Rotator() {
 
 const btn = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition-all hover:-translate-y-0.5";
 
+async function openResume() {
+  try {
+    const res = await fetch("/resume.pdf", { method: "HEAD" });
+    if (res.ok) {
+      window.open("/resume.pdf", "_blank", "noopener");
+      return;
+    }
+  } catch {
+    // fall through to email fallback
+  }
+  window.location.href = `mailto:${contact.email}?subject=Resume%20request`;
+}
+
 function Index() {
   const reduce = useReducedMotion();
   const fade = (d: number) => ({ initial: (reduce ? false : { opacity: 0, y: 20 }) as false | { opacity: number; y: number }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: d } });
@@ -73,7 +86,7 @@ function Index() {
             </motion.p>
             <motion.div {...fade(0.4)} className="mt-8 flex flex-wrap gap-3">
               <a href="#projects" className={`${btn} bg-brand text-primary-foreground shadow-glow`}>Explore My Projects <ArrowRight className="h-4 w-4" /></a>
-              <a href={`mailto:${contact.email}?subject=Resume%20request`} className={`${btn} glass`}><FileText className="h-4 w-4" /> Request Resume</a>
+              <button type="button" onClick={openResume} className={`${btn} glass`}><FileText className="h-4 w-4" /> Request Resume</button>
               <a href="#contact" className={`${btn} text-muted-foreground hover:text-foreground`}>Contact Me</a>
             </motion.div>
           </div>
@@ -175,7 +188,7 @@ function Index() {
               <h3 className="mt-4 text-lg font-semibold">B.Tech in Artificial Intelligence & Data Science</h3>
               <p className="mt-1 text-foreground/80">Adhi College of Engineering and Technology</p>
               <p className="text-sm text-muted-foreground">Anna University · Kancheepuram, Tamil Nadu</p>
-              <div className="mt-5 flex gap-3 font-mono text-xs"><Tag>2021–2025</Tag><Tag>CGPA 8.6 / 10</Tag></div>
+              <div className="mt-5 flex gap-3 font-mono text-xs"><Tag>2023–2027</Tag><Tag>CGPA 8.6 / 10</Tag></div>
             </Reveal>
             <Reveal delay={0.1} className="glass rounded-2xl p-6 sm:p-8">
               <GraduationCap className="h-7 w-7 text-primary" />
