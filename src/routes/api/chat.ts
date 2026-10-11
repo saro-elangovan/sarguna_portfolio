@@ -14,7 +14,7 @@ function buildInstructions() {
     experience,
     projects,
     education: [
-      { degree: "B.Tech in Artificial Intelligence & Data Science", institution: "Adhi College of Engineering and Technology", university: "Anna University", location: "Kancheepuram, Tamil Nadu", duration: "2021–2025", cgpa: "8.6 / 10" },
+      { degree: "B.Tech in Artificial Intelligence & Data Science", institution: "Adhi College of Engineering and Technology", university: "Anna University", location: "Kancheepuram, Tamil Nadu", duration: "2023–2027", cgpa: "8.6 / 10" },
       { degree: "Higher Secondary Education", institution: "Government Girls Higher Secondary School", location: "Villupuram, Tamil Nadu" },
     ],
     certifications,
