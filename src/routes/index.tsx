@@ -8,6 +8,7 @@ import { Reveal, SectionHeader, CountUp, Tag, Github, Linkedin } from "@/compone
 import { ContactForm } from "@/components/portfolio/ContactForm";
 import { AskAssistant } from "@/components/portfolio/AskAssistant";
 import { contact, stats, skills, experience, projects, certifications, services, nav } from "@/lib/portfolio-data";
+import resumeAsset from "@/assets/Sarguna_Resume.pdf.asset.json";
 
 const TITLE = "Sarguna E — AI & Data Science Portfolio | Data Analyst";
 const DESC = "Portfolio of Sarguna E, AI & Data Science graduate and Data Analyst skilled in Python, SQL, Power BI, and Machine Learning.";
@@ -49,17 +50,8 @@ function Rotator() {
 
 const btn = "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition-all hover:-translate-y-0.5";
 
-async function openResume() {
-  try {
-    const res = await fetch("/resume.pdf", { method: "HEAD" });
-    if (res.ok) {
-      window.open("/resume.pdf", "_blank", "noopener");
-      return;
-    }
-  } catch {
-    // fall through to email fallback
-  }
-  window.location.href = `mailto:${contact.email}?subject=Resume%20request`;
+function openResume() {
+  window.open(resumeAsset.url, "_blank", "noopener");
 }
 
 function Index() {
@@ -86,7 +78,7 @@ function Index() {
             </motion.p>
             <motion.div {...fade(0.4)} className="mt-8 flex flex-wrap gap-3">
               <a href="#projects" className={`${btn} bg-brand text-primary-foreground shadow-glow`}>Explore My Projects <ArrowRight className="h-4 w-4" /></a>
-              <button type="button" onClick={openResume} className={`${btn} glass`}><FileText className="h-4 w-4" /> Request Resume</button>
+              <button type="button" onClick={openResume} className={`${btn} glass`}><FileText className="h-4 w-4" /> View Resume</button>
               <a href="#contact" className={`${btn} text-muted-foreground hover:text-foreground`}>Contact Me</a>
             </motion.div>
           </div>
